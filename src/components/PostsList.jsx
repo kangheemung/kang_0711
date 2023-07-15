@@ -9,36 +9,30 @@ function PostsList({isPosting, onStopPosting}) {
   const [posts, setPosts ]= useState([ ]);
 
  function addPostHandler(postData){
-   setPosts((exisitingPosts) =>[postData,...existingPosts]);
+   setPosts((existingPosts) => [postData,...existingPosts]);
  }
-  //let modalContent;
-    //if (modalIsVisible) {
-      //modalContent =(
-       // <Modal onClose ={hideModalHadler}>
-         // <NewPost
-        //    onBodyChange ={bodyChangeHandler}
-         //   onAuthorChange={authorChangeHandler}
-       //   />
-       // </Modal>
-        
-       // );
- //   }
-
     return(
       <>
         {isPosting && (
         <Modal onClose = {onStopPosting}>
           <NewPost
-            onCancel = {onStopPosting} onAddPost = {addPostHandler}
-        />
+            onCancel = {onStopPosting} 
+            onAddPost = {addPostHandler}
+          />
         </Modal > 
         )}
-       
+       {posts.length > 0 && (
         <ul className = {classes.posts}>
-          <Post author ="マニュアル" body = "確認！素敵"/>
+          {posts.map((post) => 
+          <Post key = {post.body}　author = {post.author} body = {post.body} />
+          )}
         </ul>
-         
+        )}
+         {posts.length === 0 && <div style ={{textAlign: 'center',color: 'black'}}>
+           <h2>There are no posts yet.</h2>
+           <p>Start adding some!</p>
+         </div>}
       </>
-          );
+         );
 }
 export default PostsList;

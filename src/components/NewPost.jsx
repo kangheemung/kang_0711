@@ -14,13 +14,16 @@ function NewPost ({onCancel,onAddPost}) {
          setEnteredAuthor(event.target.value);
      }
   function submitHandler(event){
-      event.proventDefault();
+      event.preventDefault();
       const postData={
           body: enteredBody,
           auther: enteredAuthor
       };
-      onAddPost();
+      console.log(postData);
+      onAddPost(postData);
       onCancel();
+     
+      
   }
     return (
      <form className = {classes.form} onSubmit = {submitHandler} >
@@ -35,7 +38,7 @@ function NewPost ({onCancel,onAddPost}) {
       </p>
       <p className = {classes.actions}></p>
       <button type ="button " onClick ={onCancel}>Cancel</button>
-      <button>Submit</button>
+      <button type ="submit"  >Submit</button>
     </form>
     );
 }
